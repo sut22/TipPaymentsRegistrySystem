@@ -11,8 +11,7 @@ interface WaiterDefinition
 }
 
 // HTML SECTION ----------------------------------------------------------------------
-const declarer = await loadTemplate(
-    "../Templates/WaiterDefinition/waiterDeclarer.html",
+const declarer = await loadTemplate(`${import.meta.env.BASE_URL}Templates/WaiterDefinition/waiterDeclarer.html`,
     "waiterDeclarer"
 );
 
@@ -39,14 +38,14 @@ const sendDeclarationButton =
 
 
 // HTML SECTION ----------------------------------------------------------------------
-const gridViewClone = await loadTemplate ( "../Templates/WaiterDefinition/waiterGridView.html" , "waiterGridView" ) ;
+const gridViewClone = await loadTemplate ( `${import.meta.env.BASE_URL}Templates/WaiterDefinition/waiterGridView.html` , "waiterGridView" ) ;
 document.getElementById("waiterDefinitionsGridViewSection")!.appendChild(gridViewClone);
 
   const fetched = await fetchWaiters () ;
 
   for ( let i = 0 ; i < fetched.length ; i++ )
   {
-    const gridViewRowClone = await loadTemplate ( "../Templates/tippableMembersGridViewRow.html" ,
+    const gridViewRowClone = await loadTemplate ( `${import.meta.env.BASE_URL}Templates/tippableMembersGridViewRow.html` ,
                                               "tippableMembersGridViewRow" ) ;
     gridViewClone.querySelector<HTMLDivElement>('#rowsContainer')!.appendChild(gridViewRowClone);
 

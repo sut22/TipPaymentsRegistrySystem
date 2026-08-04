@@ -12,7 +12,7 @@ interface TippableMember
 
 // HTML SECTION ----------------------------------------------------------------------
 const declarer = await loadTemplate(
-    "../Templates/tippableMemberDeclarer.html",
+    `${import.meta.env.BASE_URL}Templates/tippableMemberDeclarer.html`,
     "tippableMemberDeclarer"
 );
 
@@ -39,14 +39,14 @@ const sendDeclarationButton =
 
 
 // HTML SECTION ----------------------------------------------------------------------
-const gridViewClone = await loadTemplate ( "../Templates/tippableMembersGridView.html" , "tippableMembersGridView" ) ;
+const gridViewClone = await loadTemplate ( `${import.meta.env.BASE_URL}Templates/tippableMembersGridView.html` , "tippableMembersGridView" ) ;
 document.getElementById("tippableMembersGridViewSection")!.appendChild(gridViewClone);
 
   const fetched = await fetchTippableMembers () ;
 
   for ( let i = 0 ; i < fetched.length ; i++ )
   {
-    const gridViewRowClone = await loadTemplate ( "../Templates/tippableMembersGridViewRow.html" ,
+    const gridViewRowClone = await loadTemplate ( `${import.meta.env.BASE_URL}Templates/tippableMembersGridViewRow.html` ,
                                               "tippableMembersGridViewRow" ) ;
     gridViewClone.querySelector<HTMLDivElement>('#rowsContainer')!.appendChild(gridViewRowClone);
 
