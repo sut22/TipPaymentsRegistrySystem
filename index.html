@@ -3,47 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bootstrap + TypeScript App</title>
-    <script type="module" crossorigin src="/TipPaymentsRegistrySystem/assets/index-azAt-rkI.js"></script>
-    <link rel="stylesheet" crossorigin href="/TipPaymentsRegistrySystem/assets/index-fak1QHJv.css">
+    <title>Tips Manager</title>
+    <script type="module" crossorigin src="/TipPaymentsRegistrySystem/assets/index-CS_jpYpI.js"></script>
+    <link rel="stylesheet" crossorigin href="/TipPaymentsRegistrySystem/assets/index-u6L40VfP.css">
   </head>
-  <body class="bg-body text-body">
+  <body class="bg-body text-body" data-bs-theme="dark">
 
-
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom">
-    <div class="container">
-
-      <!-- Hamburger Button -->
-      <button 
-        class="navbar-toggler" 
-        type="button" 
-        data-bs-toggle="collapse" 
-        data-bs-target="#navbarNav" 
-        aria-controls="navbarNav" 
-        aria-expanded="false" 
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <a class="navbar-brand fw-bold text-left" href="#">TipsManager</a>
     
-      
+    
+<nav class="navbar navbar-expand navbar-dark bg-dark">
+  <div class="container-fluid">
+    
+    <a class="nav-link text-center text-white justify-content-around" href="#">
 
-    <!-- Collapsible Menu Items -->
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Features</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Docs</a>
-        </li>
-      </ul>
-    </div>
+      
+      
+      <button type="button" class="btn btn-primary d-flex align-items-center btn-dark btn-outline-light" style="height: 30px;">
+        <a>Antony Vaccaro</a>
+      </button>
+    </a>
+
+    
   </div>
 </nav>
 
@@ -51,45 +31,42 @@
 
 
 
-  <div id="waiterDefinitionsGridViewSection"></div>
-  <div id="declaringWaitersSection"></div>
-
-
-  <div id="tippableMembersGridViewSection"></div>
-
-  <div id="declaringTippableMembersSection"></div>
 
 
 
+    <nav class="navbar navbar-expand navbar-dark bg-dark fixed-bottom">
+  <div class="container-fluid flex-row-reverse">
+    
+    <a class="nav-link text-center text-white justify-content-around" href="#">
+
+      
+      
+      <button type="button" class="btn btn-primary d-flex align-items-center justify-content-center p-0 btn-dark" style="width: 45px; height: 45px;">
+        <i class="bi bi-plus-circle-dotted" style="font-size: 45px; line-height: 1;"></i>
+      </button>
+    </a>
+
+    
+
+    
+  </div>
+</nav>
 
 
 
 
 
-  <div class="table-responsive">
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Header 1</th>
-        <th>Header 2</th>
-        <th>Header 3</th>
-        <th>Header 4</th>
-        <th>Header 5</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Data Column 1</td>
-        <td>Data Column 2</td>
-        <td>Data Column 3</td>
-        <td>Data Column 4</td>
-        <td>Data Column 5</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
 
 
+  <div id="paymentsRegistry"></div>
+
+  <div id="tippableMembersSection"></div>
+
+  <div id="waitersDefinitionSection"></div>
+
+  <div id="modals">
+
+  </div>
 
 
 
@@ -99,9 +76,7 @@
 
 
 
-
-
-
+  
 </body>
 </html>
 
