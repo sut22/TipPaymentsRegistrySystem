@@ -1,5 +1,11 @@
+//  calls to APPS SCRIPT
 import { APPS_SCRIPT_URL } from "./config";
-import { loadTemplate } from "./templateCloner.ts" ;
+import { callApi } from "./appsScriptCall.ts" ;
+
+//  CONTENT GENERATOR
+import type { TableColumn } from "./contentGenerator.ts" ;
+import { createTable , sectionsHTML } from "./contentGenerator.ts" ;
+import { instantiateTemplate } from "./templateHandler.ts" ;
 
 //  DECLARATIONS --------------------
 interface TippableMember
@@ -10,80 +16,71 @@ interface TippableMember
     isActive: boolean ;
 }
 
-// HTML SECTION ----------------------------------------------------------------------
-const declarer = await loadTemplate(
-    `${import.meta.env.BASE_URL}Templates/tippableMemberDeclarer.html`,
-    "tippableMemberDeclarer"
-);
-
-document
-    .getElementById("declaringTippableMembersSection")!
-    .appendChild(declarer);
-
-const memberNameInputField =
-    declarer.querySelector<HTMLInputElement>("#memberNameInputField")!;
-
-const positionNameSelectInput =
-    declarer.querySelector<HTMLSelectElement>("#positionNameSelectInput")!;
-
-const sendDeclarationButton =
-    declarer.querySelector<HTMLButtonElement>("#sendDeclarationButton")!;
-
-  sendDeclarationButton!.addEventListener ( "click" , () => {
-    sendMemberData ( memberNameInputField!.value , positionNameSelectInput!.value ) ;
-  } ) ;
+const memberColumns: TableColumn < TippableMember > [] = [
+    {
+        header: "ID",
+        value: member => member.id.toString ()
+    } ,
+    {
+        header: "Nombre",
+        value: member => member.name
+    } ,
+    {
+        header: "Puesto",
+        value: member => member.position
+    } ,
+    {
+        header: "¿Recibe tips?",
+        value: member => member.isActive.toString ()
+    }
+] ;
 
 
 
+//  ENTRY POINT
+await buildMemberDeclaring () ;
+await buildMembersTable () ;
 
 
+async function buildMemberDeclaring ()
+{
+    const sectionTEMPLATE = sectionsHTML.getChildTemplate ( "declareNewTippableMemberSection" ) ;
+    const sectionHTML = instantiateTemplate ( sectionTEMPLATE ) ;
+    const containerHTMLELEMENT : HTMLElement = document.getElementById ( "tippableMembersSection" )! ;
+    containerHTMLELEMENT.appendChild ( sectionHTML ) ;
+    
+    const textFieldHTML = sectionHTML.querySelector<HTMLInputElement>("#textField")!;
+    const selectFieldHTML = sectionHTML.querySelector<HTMLInputElement>("#selectField")!;
 
-// HTML SECTION ----------------------------------------------------------------------
-const gridViewClone = await loadTemplate ( `${import.meta.env.BASE_URL}Templates/tippableMembersGridView.html` , "tippableMembersGridView" ) ;
-document.getElementById("tippableMembersGridViewSection")!.appendChild(gridViewClone);
+    const sendButtonHTML = sectionHTML.querySelector<HTMLButtonElement>("#sendButton")!;
 
-  const fetched = await fetchTippableMembers () ;
-
-  for ( let i = 0 ; i < fetched.length ; i++ )
-  {
-    const gridViewRowClone = await loadTemplate ( `${import.meta.env.BASE_URL}Templates/tippableMembersGridViewRow.html` ,
-                                              "tippableMembersGridViewRow" ) ;
-    gridViewClone.querySelector<HTMLDivElement>('#rowsContainer')!.appendChild(gridViewRowClone);
-
-    gridViewRowClone.querySelector("#name")!.textContent = fetched[i].name;
-    gridViewRowClone.querySelector("#id")!.textContent = fetched[i].id.toString();
-    gridViewRowClone.querySelector("#position")!.textContent = fetched[i].position;
-    gridViewRowClone.querySelector("#isActive")!.textContent =
-    fetched[i].isActive ? "Habilitado" : "Deshabilitado";
-  }
+    sendButtonHTML!.addEventListener ( "click" , () =>
+        { declareNewTippableMember ( textFieldHTML!.value , selectFieldHTML!.value ) ; } )
+} ;
 
 
+async function buildMembersTable ()
+{
+    const fetched = await fetchTippableMembers () ;
+    const containerHTMLELEMENT : HTMLElement = document.getElementById ( "tippableMembersSection" )! ;
+    
 
-
+    createTable ( containerHTMLELEMENT , fetched , memberColumns );
+} ;
 
 
 async function fetchTippableMembers ()
 {
-  const response = await fetch ( APPS_SCRIPT_URL ,
-  {
-      method: "POST",
-      headers: { "Content-Type": "text/plain" } ,
-      body: JSON.stringify ( { function: "getTippableMembers" } )
-  } ) ;
-
-  const members: TippableMember[] = await response.json() ;
+  let members = await callApi<TippableMember[]>({
+    function: "getTippableMembers"
+  });
 
   return members ;
 }
 
 
-
-
-
-
-
 // CREATE NEW MEMBER ON SPREADSHEET ----------------------------------------------------
-export async function sendMemberData( newMemberName: string, newMemberPosition: string ) {
+export async function declareNewTippableMember ( newMemberName: string , newMemberPosition: string ) {
 await fetch ( APPS_SCRIPT_URL ,
 {
     method: "POST",

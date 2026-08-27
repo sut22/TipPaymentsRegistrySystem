@@ -1,0 +1,103 @@
+<template id="mainTemplate">
+
+  <template id="declareNewTippableMemberSection"><div>
+    
+    <p>Declarar nuevo Tippable Member</p>
+    <p>Esto registrará una persona nueva que podrá recibir tips</p>
+
+    <input class="form-control" type="text" placeholder="Escribe el nombre aquí" id="textField"></input>
+    
+    <div class="input-group mb-3">
+      <label class="input-group-text">Posición</label>
+      <select id="selectField" class="form-select">
+        <option selected>[Selecciona el puesto]</option>
+        <option value="SPG">SPG</option>
+        <option value="Delivery">Delivery</option>
+      </select>
+    </div>
+    
+    <button id="sendButton" class="primary-button">
+          Enviar nuevo registro
+    </button>
+  </div></template>
+
+
+
+  <template id="declareNewWaiterSection"><div>
+    
+    <p>Declarar nuevo Waiter</p>
+    <p>Esto añadirá una persona nueva en el registro de meseros</p>
+
+    <input class="form-control" type="text" placeholder="Escribe el nombre aquí" id="textField"></input>
+    
+    <div class="input-group mb-3">
+      <label class="input-group-text">Posición</label>
+      <select id="selectField" class="form-select">
+        <option selected>[Selecciona el modo]</option>
+        <option value="PART-TIME">PART-TIME</option>
+        <option value="FULL-TIME">FULL-TIME</option>
+      </select>
+    </div>
+    
+    <button id="sendButton" class="primary-button">
+          Enviar nuevo registro
+    </button>
+  </div></template>
+
+
+
+  <template id="registerPayementModal">
+    <div class="modal fade" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+              <h5 class="modal-title">Registrar pago de deuda</h5>
+
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal">
+              </button>
+            </div><!--header-->
+
+
+            <div class="modal-body">
+
+              Para: <t class="enphasisText" id="waiterName"></t>
+
+              <div class="input-group mb-3">
+                <label class="input-group-text" for="inputGroupSelect01">Canal</label>
+                <select class="form-select" id="inputGroupSelect01">
+                  <option selected value="Efectivo">Efectivo</option>
+                  <option value="Yape">Yape</option>
+                  <option value="Plin">Plin</option>
+                </select>
+              </div><!--input-group-->
+
+              <input 
+                type="text" 
+                inputmode="decimal" 
+                class="form-control" 
+                placeholder="Escribe el monto">
+              </input>
+            </div><!--body-->
+
+
+            <div class="modal-footer">
+                <button
+                    type="button"
+                    class="btn btn-success"
+                    data-bs-dismiss="modal">
+                    Registrar
+                </button>
+            </div><!--footer-->
+
+
+          </div>
+      </div>
+    </div>
+  </template>
+
+
+</template> 

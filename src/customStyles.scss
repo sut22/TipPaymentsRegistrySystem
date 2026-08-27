@@ -1,0 +1,29 @@
+.sticky-header {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: var(--bs-body-bg);
+}
+
+.sticky-column {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    background: var(--bs-body-bg);
+}
+
+.sticky-header.sticky-column {
+    z-index: 3;
+}
+
+.table .payment-day-completed {
+    background: #85e29b;
+}
+
+.table .greyed-out-text {
+    color: #9c9c9c ;
+}
+
+.enphasisText {
+    color: #00d8e4 ;
+}
