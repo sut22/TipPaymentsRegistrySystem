@@ -1,3 +1,4 @@
+/*
 import { setString , getString } from "./localStorageHelper" ;
 import { callApi } from "./appsScriptCall.ts" ;
 
@@ -17,7 +18,7 @@ interface AuthorizationData
     authorizedUserID: number ;
 }
 
-/*
+
 await function authorize () : boolean
 {
     authorizationData = await callApi<AuthorizationData[]>({
