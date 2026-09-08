@@ -67,15 +67,16 @@
               Para: <t class="enphasisText" id="waiterName"></t>
 
               <div class="input-group mb-3">
-                <label class="input-group-text" for="inputGroupSelect01">Canal</label>
-                <select class="form-select" id="inputGroupSelect01">
+                <label class="input-group-text" for="paymentChannelInput">Canal</label>
+                <select class="form-select" id="paymentChannelInput">
                   <option selected value="Efectivo">Efectivo</option>
                   <option value="Yape">Yape</option>
                   <option value="Plin">Plin</option>
                 </select>
               </div><!--input-group-->
 
-              <input 
+              <input
+                id="paymentAmountInput"
                 type="text" 
                 inputmode="decimal" 
                 class="form-control" 
@@ -86,6 +87,7 @@
 
             <div class="modal-footer">
                 <button
+                    id ="sendButton"
                     type="button"
                     class="btn btn-success"
                     data-bs-dismiss="modal">
@@ -97,7 +99,64 @@
           </div>
       </div>
     </div>
-  </template>
+  </template><!--registerPayementModal-->
+
+
+
+
+  <template id="loginModal">
+    <div class="modal fade" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+              <h5 class="modal-title">Validar usuario</h5>
+
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal">
+              </button>
+            </div><!--header-->
+
+
+            <div class="modal-body">
+
+              <div class="form-floating">
+              <input id="masterKeyInput" type="password" class="form-control" id="floatingPassword" placeholder="Ingresa tu llave secreta">
+              <label for="floatingPassword">Ingresa tu llave secreta</label>
+              </div>
+
+
+
+
+            </div><!--body-->
+
+            
+
+
+            <div class="modal-footer">
+                <button
+                    id ="sendButton"
+                    type="button"
+                    class="btn btn-success"
+                    data-bs-dismiss="modal">
+                    Acceder
+                </button>
+            </div><!--footer-->
+
+
+          </div>
+      </div>
+    </div>
+  </template><!--loginModal-->
+
+
+
+
+
+
+
 
 
 </template> 
