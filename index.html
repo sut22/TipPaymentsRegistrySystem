@@ -1,82 +1,42 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tips Manager</title>
-  </head>
-  <body class="bg-body text-body" data-bs-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tips Manager</title>
+</head>
+<body class="bg-body text-body" data-bs-theme="dark">
 
-    
-    
-<nav class="navbar navbar-expand navbar-dark bg-dark">
-  <div class="container-fluid">
-    
-    <a class="nav-link text-center text-white justify-content-around" href="#">
+  <nav class="navbar navbar-expand navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="nav-link text-center text-white justify-content-around" href="#">
+        <button id="loginButton" type="button" class="btn btn-primary d-flex align-items-center btn-dark btn-outline-light" style="height: 30px;">
+          <a id="buttonText">Usuario Invitado</a>
+        </button>
+      </a>
+    </div>
+  </nav>
 
-      
-      
-      <button type="button" class="btn btn-primary d-flex align-items-center btn-dark btn-outline-light" style="height: 30px;">
-        <a>Antony Vaccaro</a>
-      </button>
-    </a>
-
-    
-  </div>
-</nav>
-
-
-
-
-
-
-
-
-    <nav class="navbar navbar-expand navbar-dark bg-dark fixed-bottom">
-  <div class="container-fluid flex-row-reverse">
-    
-    <a class="nav-link text-center text-white justify-content-around" href="#">
-
-      
-      
-      <button type="button" class="btn btn-primary d-flex align-items-center justify-content-center p-0 btn-dark" style="width: 45px; height: 45px;">
-        <i class="bi bi-plus-circle-dotted" style="font-size: 45px; line-height: 1;"></i>
-      </button>
-    </a>
-
-    
-
-    
-  </div>
-</nav>
-
-
-
-
-
-
+  <!--
+  <nav class="navbar navbar-expand navbar-dark bg-dark fixed-bottom">
+    <div class="container-fluid flex-row-reverse">
+      <a class="nav-link text-center text-white justify-content-around" href="#">
+        <button type="button" class="btn btn-primary d-flex align-items-center justify-content-center p-0 btn-dark" style="width: 45px; height: 45px;">
+          <i class="bi bi-plus-circle-dotted" style="font-size: 45px; line-height: 1;"></i>
+        </button>
+      </a>
+    </div>
+  </nav>
+  -->
 
   <div id="paymentsRegistry"></div>
-
   <div id="tippableMembersSection"></div>
-
   <div id="waitersDefinitionSection"></div>
-
-  <div id="modals">
-
-  </div>
+  <div id="modals"></div>
 
 
 
 
-
-
-
-
-
-  
   <script type="module" src="/src/Scripts/main.ts"></script>
 </body>
 </html>
-
-

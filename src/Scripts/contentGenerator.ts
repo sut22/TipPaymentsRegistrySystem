@@ -6,12 +6,22 @@ import "../style.scss" ;
 export const utilitiesHTML = await loadHtmlFile ( "htmlTemplates/utilities.html" ) ;
 export const sectionsHTML = await loadHtmlFile ( "htmlTemplates/sections.html" ) ;
 
+export interface TableInstance<T>
+{
+    rows: HTMLTableRowElement[] ;
+    cells: HTMLTableCellElement[][] ;
+    data: T[] ;
+}
+
+
 export interface TableColumn < T >
 {
     header: string | string[];
     value : ( item: T ) => string ;
     headerTextSize ? : string ;
+    cellTextSize ? : string ;
     headerCellWidth ? : string ;
+    cellHeight ? : string ;
     sticky ?: boolean ;
     greyedOut ?: boolean ;
     onClick ?: ( item: T ) => void ;
@@ -21,8 +31,11 @@ export function createTable<T>(
     appendIn: HTMLElement,
     data: T[],
     columns: TableColumn<T>[]
-)
+): TableInstance<T>
 {
+    const rows: HTMLTableRowElement[] = [];
+    const cells: HTMLTableCellElement[][] = [];
+
     const tableComponentsTEMPLATE =
         utilitiesHTML.getChildTemplate("tableComponents");
 
@@ -97,14 +110,16 @@ export function createTable<T>(
     for (const item of data)
     {
         const newRowHTML =
-            instantiateTemplate(rowTEMPLATE);
+    instantiateTemplate(rowTEMPLATE) as HTMLTableRowElement;
 
         bodyHTML.appendChild(newRowHTML);
+
+        const rowCells: HTMLTableCellElement[] = [];
 
         for (const column of columns)
         {
             const newCellHTML =
-                instantiateTemplate(cellTEMPLATE);
+    instantiateTemplate(cellTEMPLATE) as HTMLTableCellElement;
 
 
             const cellValue = column.value(item);
@@ -112,6 +127,10 @@ export function createTable<T>(
 
             if (column.sticky)
             newCellHTML.classList.add("sticky-column");
+
+            if ( column.cellTextSize ) newCellHTML.style.fontSize = column.cellTextSize ;
+
+            if (column.cellHeight ) newCellHTML.style.height = column.cellHeight;
 
             if (newCellHTML.textContent === "") newCellHTML.classList.add("payment-day-completed");
             if ( column.greyedOut ) newCellHTML.classList.add ( "greyed-out-text" ) ;
@@ -124,8 +143,19 @@ export function createTable<T>(
                     () => column.onClick!( item )
                 );
             }   
-
+            
             newRowHTML.appendChild(newCellHTML);
+
+            rowCells.push(newCellHTML);
         }
+
+        rows.push(newRowHTML);
+        cells.push(rowCells);
     }
+
+    return {
+        rows,
+        cells,
+        data
+    };
 }
