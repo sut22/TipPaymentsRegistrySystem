@@ -44,7 +44,8 @@ const dataColumns: TableColumn < WaiterPaymentState > [] = [
         header: ["Deuda", "total"] ,
         value: member => member.totalDebt.toString () ,
         headerTextSize : "12px" ,
-        cellTextSize : "18px" ,
+        cellTextSize : "22px" ,
+        emphasized : true ,
     } ,
     {
         header: ["Días", "pendientes"] ,

@@ -16,6 +16,11 @@
     z-index: 3;
 }
 
+.responsiveDiv {
+    overflow-y: auto;
+    max-height: 600px;
+}
+
 .table .payment-day-completed {
     background: #85e29b;
 }
@@ -24,6 +29,6 @@
     color: #9c9c9c ;
 }
 
-.enphasisText {
+.table .enphasisText {
     color: #00d8e4 ;
 }

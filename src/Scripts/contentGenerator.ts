@@ -25,6 +25,7 @@ export interface TableColumn < T >
     sticky ?: boolean ;
     greyedOut ?: boolean ;
     onClick ?: ( item: T ) => void ;
+    emphasized ?: boolean ;
 }
 
 export function createTable<T>(
@@ -83,24 +84,24 @@ export function createTable<T>(
 
     headHTML.appendChild ( headRowHTML ) ;
 
-    for (const column of columns)
+
+    for ( const column of columns )
     {
-        const headCellHTML =
-            instantiateTemplate(headCellTEMPLATE);
+        const headCellHTML = instantiateTemplate ( headCellTEMPLATE ) ;
 
         headCellHTML.style.whiteSpace = "nowrap";
 
-        if (Array.isArray(column.header))
-        headCellHTML.innerHTML = column.header.join("<br>");
+        if ( Array.isArray ( column.header ) )
+            headCellHTML.innerHTML = column.header.join("<br>");
         else
-        headCellHTML.textContent = column.header;
+            headCellHTML.textContent = column.header;
 
-        if (column.headerCellWidth)
-    headCellHTML.style.width = column.headerCellWidth;
-
+        if ( column.headerCellWidth ) headCellHTML.style.width = column.headerCellWidth;
         if ( column.headerTextSize ) headCellHTML.style.fontSize = column.headerTextSize ;
-
         if ( column.greyedOut ) headCellHTML.classList.add ( "greyed-out-text" ) ;
+        if ( column.emphasized ) headCellHTML.classList.add ( "enphasisText" ) ;
+
+        headCellHTML.classList.add("sticky-header");
 
         headRowHTML.appendChild(headCellHTML);
     }
@@ -142,7 +143,12 @@ export function createTable<T>(
                     "click",
                     () => column.onClick!( item )
                 );
-            }   
+            }
+
+            if ( column.emphasized )
+            {
+                newCellHTML.classList.add ( "enphasisText" ) ;
+            }
             
             newRowHTML.appendChild(newCellHTML);
 

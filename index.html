@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-table@1.22.6/dist/extensions/sticky-header/bootstrap-table-sticky-header.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.22.6/dist/extensions/sticky-header/bootstrap-table-sticky-header.min.js"></script>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,26 +10,40 @@
 <body class="bg-body text-body" data-bs-theme="dark">
 
   <nav class="navbar navbar-expand navbar-dark bg-dark">
-    <div class="container-fluid">
-      <a class="nav-link text-center text-white justify-content-around" href="#">
-        <button id="loginButton" type="button" class="btn btn-primary d-flex align-items-center btn-dark btn-outline-light" style="height: 30px;">
-          <a id="buttonText">Usuario Invitado</a>
-        </button>
-      </a>
+    <div class="container-fluid justify-content-end">
+      <p style="margin-right: 10px ;">Perfil:</p>
+      <button id="loginButton" type="button" class="btn btn-primary d-flex align-items-center btn-dark btn-outline-light" style="height: 30px;">
+        <a id="buttonText">Usuario Invitado</a>
+      </button>
     </div>
   </nav>
 
   <!--
-  <nav class="navbar navbar-expand navbar-dark bg-dark fixed-bottom">
-    <div class="container-fluid flex-row-reverse">
-      <a class="nav-link text-center text-white justify-content-around" href="#">
-        <button type="button" class="btn btn-primary d-flex align-items-center justify-content-center p-0 btn-dark" style="width: 45px; height: 45px;">
-          <i class="bi bi-plus-circle-dotted" style="font-size: 45px; line-height: 1;"></i>
-        </button>
-      </a>
+  <nav class="navbar fixed-bottom navbar-dark bg-dark flex-column p-2">
+  <div class="container-fluid">
+    
+     Top Row: Horizontally Scrollable Buttons 
+    <div class="d-flex flex-nowrap overflow-x-auto w-100 mb-2 pb-1 gap-2" style="white-space: nowrap;">
+      <button type="button" class="btn btn-sm btn-outline-light">Opción 1</button>
+      <button type="button" class="btn btn-sm btn-outline-light">Opción 2</button>
+      <button type="button" class="btn btn-sm btn-outline-light">Opción 3</button>
+      <button type="button" class="btn btn-sm btn-outline-light">Opción 4</button>
+      <button type="button" class="btn btn-sm btn-outline-light">Opción 5</button>
+      <button type="button" class="btn btn-sm btn-outline-light">Opción 6</button>
+      <button type="button" class="btn btn-sm btn-outline-light">Opción 7</button>
     </div>
-  </nav>
-  -->
+
+    <div class="d-flex justify-content-around w-100">
+      <button type="button" class="btn btn-outline-info">Acciones</button>
+      <div style="width: 100px;"></div>
+      <button type="button" class="btn btn-outline-info">Funciones</button>
+    </div>
+    -->
+
+  </div>
+</nav>
+
+
 
   <div id="paymentsRegistry"></div>
   <div id="tippableMembersSection"></div>
