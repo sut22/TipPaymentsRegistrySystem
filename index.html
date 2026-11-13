@@ -9,14 +9,79 @@
 </head>
 <body class="bg-body text-body" data-bs-theme="dark">
 
-  <nav class="navbar navbar-expand navbar-dark bg-dark">
-    <div class="container-fluid justify-content-end">
-      <p style="margin-right: 10px ;">Perfil:</p>
-      <button id="loginButton" type="button" class="btn btn-primary d-flex align-items-center btn-dark btn-outline-light" style="height: 30px;">
-        <a id="buttonText">Usuario Invitado</a>
+  
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    
+    <!-- Element 1: The Toggler Button -->
+    <div class="d-flex align-items-center">
+      <button class="navbar-toggler d-flex align-items-center justify-content-center p-1" type="button" style="width: 36px; height: 36px;">
+        <span class="navbar-toggler-icon" style="width: 1.25em; height: 1.25em;"></span>
       </button>
     </div>
-  </nav>
+
+    <!-- Element 2: Container holding the text and login button -->
+    <div class="d-flex align-items-center">
+      <p class="text-light mb-0" style="margin-right: 10px;">Perfil:</p>
+      <button id="loginButton" type="button" class="btn btn-primary d-flex align-items-center btn-dark btn-outline-light" style="height: 30px;">
+        <a id="buttonText" class="text-decoration-none text-light">Antony Vaccaro</a>
+      </button>
+    </div>
+    
+  </div>
+</nav>
+
+
+    
+
+
+
+
+
+
+
+
+
+  
+
+
+  <div class="content-margin">
+    <h4>
+    Miércoles 12 de Noviembre
+    </h4>
+
+    <div class="d-flex align-items-center gap-2">
+      <p>Vista por</p>
+      <button type="button" class="btn btn-outline-info d-flex
+                                  align-items-center justify-content-center"
+                                  style="height: 30px; width: 80px;">
+        Horarios
+      </button>
+
+      <button type="button" class="btn btn-outline-light d-flex
+                                  align-items-center justify-content-center"
+                                  style="height: 30px; width: 50px;">
+        Lista
+      </button>
+    </div>
+
+    <div style="height: 15px;"></div>
+
+    <div id="paymentsRegistry"></div>
+    <div id="tippableMembersSection"></div>
+    <div id="waitersDefinitionSection"></div>
+    <div id="modals"></div>
+
+
+
+  </div>
+
+  
+    
+
+  
+
+  
 
   <!--
   <nav class="navbar fixed-bottom navbar-dark bg-dark flex-column p-2">
@@ -40,15 +105,9 @@
     </div>
     -->
 
-  </div>
-</nav>
 
 
-
-  <div id="paymentsRegistry"></div>
-  <div id="tippableMembersSection"></div>
-  <div id="waitersDefinitionSection"></div>
-  <div id="modals"></div>
+  
 
 
 
