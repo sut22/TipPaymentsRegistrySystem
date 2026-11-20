@@ -2,6 +2,7 @@
 <html lang="es">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-table@1.22.6/dist/extensions/sticky-header/bootstrap-table-sticky-header.min.css">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.22.6/dist/extensions/sticky-header/bootstrap-table-sticky-header.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -63,11 +64,93 @@
                                   style="height: 30px; width: 50px;">
         Lista
       </button>
+  </div>
+
+  
+
+
+
+
+
+  <div class="d-flex my-1">
+
+    <button class="btn btn-outline-light waiter-table-action-button d-flex align-items-center gap-2 me-1 my-1 p-2">
+      <i class="bi bi-check-square-fill"></i>
+      <div class="text-start lh-sm">
+        <span style="font-size: .75em; display: block;">Confirmar</span>
+        <span style="font-size: .75em; display: block;">pago</span>
+      </div>
+    </button>
+
+    <button class="btn btn-outline-light waiter-table-action-button d-flex align-items-center gap-2 mx-1 my-1 p-2">
+      <i class="bi bi-wrench"></i>
+      <div class="text-start lh-sm">
+        <span style="font-size: .75em; display: block;">Modificar</span>
+        <span style="font-size: .75em; display: block;">monto</span>
+      </div>
+    </button>
+
+    <button class="btn btn-outline-light waiter-table-action-button d-flex align-items-center gap-2 me-1 my-1 p-2">
+        <i class="bi bi-ban"></i>
+        <div class="text-start lh-sm">
+          <span style="font-size: .75em; display: block;">Marcar</span>
+          <span style="font-size: .75em; display: block;">descanso</span>
+        </div>
+      </button>
+
+      <button class="btn btn-outline-light waiter-table-action-button d-flex align-items-center gap-2 mx-1 my-1 p-2">
+        <i class="bi bi-card-checklist"></i>
+        <div class="text-start lh-sm">
+          <span style="font-size: .75em; display: block;">Pagar</span>
+          <span style="font-size: .75em; display: block;">deuda</span>
+        </div>
+      </button>
+
+  </div>
+  
+
+  <div class="alert alert-info p-2 my-1" role="alert">
+
+    <div class="d-flex">
+      <h6 class="me-1 my-0" style="color: beige;">
+      Acción seleccionada:
+      </h6>
+      <h6 class="my-0" style="color: chartreuse;">
+      Confirmar pago
+      </h6>
     </div>
+    <p class="my-0" style="font-size: 0.825em;">
+    Pulsa en una casilla para marcarla como pagada
+    </p>
+  </div>
 
-    <div style="height: 15px;"></div>
+  
 
-    <div id="paymentsRegistry"></div>
+  
+
+  
+
+
+  
+
+
+
+
+  <div class="form-check">
+  <input class="form-check-input" style="scale: 0.85;" type="checkbox" value="" id="checkChecked" checked>
+  
+  <label class="form-check-label text-center" style="font-size: 0.75em;" for="checkChecked">
+    Mostrar deuda total y días sin pago
+  </label>
+  
+  </div>
+
+
+  <div class="my-1"></div>
+
+    <div class="tips-table-container" id="tipsTableContainer"></div>
+
+
     <div id="tippableMembersSection"></div>
     <div id="waitersDefinitionSection"></div>
     <div id="modals"></div>
@@ -75,6 +158,32 @@
 
 
   </div>
+
+
+
+
+
+  Es recomendable verificar la lista de cambios antes de registrarlos en el sistema
+
+  <p class="d-inline-flex gap-1">
+    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+      Ver cambios
+    </button>
+  </p>
+  <div class="collapse" id="collapseExample">
+    <div class="card card-body">
+      <p style="font-size: 13px;">
+      [ConfirmarPago] para Anthony Mendez de Martes 16 Dic
+      [ModificarMonto] hacia 5 para Anthony Mendez de Martes 16 Dic
+      [MarcarDescanso] para Anthony Mendez de Martes 16 Dic
+      [PagarDeuda] por 43 para Anthony Mendez de Martes 16 Dic
+      </p>
+    </div>
+  </div>
+
+  <button>
+    GUARDAR CAMBIOS
+  </button>
 
   
     

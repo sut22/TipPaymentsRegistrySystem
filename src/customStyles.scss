@@ -38,3 +38,40 @@
     padding-left: 2.5% ;
     padding-right: 2.5% ;
 }
+
+.waiter-table-action-button
+{
+    height: 40px;
+}
+
+.radio-button-group-unselected
+{
+
+}
+
+.radio-button-group-selected
+{
+
+}
+
+.table-actions-box
+{
+    padding: 2% ;
+    margin: 1% ;
+    border-style: solid;
+    border-color: beige ;
+    border-radius: 5px ;
+    border-width: 1px ;
+}
+
+.tips-table-container
+{
+    width: 100%;
+    max-height: min(50vh, 700px);
+
+    overflow: scroll;
+}
+
+.tips-table-container table {
+    border-spacing: 0;
+}

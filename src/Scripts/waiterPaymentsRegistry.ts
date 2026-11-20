@@ -5,6 +5,7 @@ import type { TableColumn , TableInstance } from "./contentGenerator.ts" ;
 import { showRegisterPaymentModal } from "./modalManager.ts" ;
 import { userData } from "./authorizationGuard.ts" ;
 
+//#region TABLE_COMPOSITE -----------------------------------------------------
 const dataColumns: TableColumn < WaiterPaymentState > [] = [
     {
         header : "Nombre" ,
@@ -36,34 +37,37 @@ const dataColumns: TableColumn < WaiterPaymentState > [] = [
                 }
             );
         },
-        cellTextSize : "14px" ,
+        headerTextSize: "13px",
+        cellTextSize : "13px" ,
         headerCellWidth : "500px" ,
         cellHeight : "60px"
     } ,
     {
         header: ["Deuda", "total"] ,
         value: member => member.totalDebt.toString () ,
-        headerTextSize : "12px" ,
-        cellTextSize : "22px" ,
+        headerTextSize : "13px" ,
+        cellTextSize : "15px" ,
         emphasized : true ,
     } ,
     {
-        header: ["Días", "pendientes"] ,
+        header: ["Días", "sin pago"] ,
         value: member => member.currentAmountOfDaysPending.toString () ,
-        headerTextSize : "12px" ,
+        headerTextSize : "11.5px" ,
         greyedOut : true ,
-        cellTextSize : "18px" ,
+        cellTextSize : "16px" ,
     } ,
     {
-        header: ["Pagado por", "adelantado"] ,
+        header: ["Adelanto", "de pago"] ,
         value: member => member.paidInAdvance.toString () ,
-        headerTextSize : "12px" ,
+        headerTextSize : "11.5px" ,
         headerCellWidth : "90px" ,
         greyedOut : true ,
-        cellTextSize : "18px" ,
+        cellTextSize : "16px" ,
     }
 ] ;
+//#endregion ---------------------------------------------------------------
 
+//#region MODELS --------------------------------------------------------------
 interface Payment {
   dayNumber : number ;
   dayOfTheWeek : string ;
@@ -82,17 +86,25 @@ interface WaiterPaymentState {
   totalDebt: number ;
 }
 
+export const TableActionMode = {
+  ConfirmPayment: "CONFIRM_PAYMENT" ,
+  ModifyAmount: "MODIFY_AMOUNT" ,
+  MarkDayOff: "MARK_DAY_OFF" ,
+  PayDebt: "PAY_DEBT" ,
+} as const ;
+export type TableActionMode = ( typeof TableActionMode ) [ keyof typeof TableActionMode ] ;
+//#endregion ------------------------------------------------------------------
+
 
 let waitersDebtTable : TableInstance < WaiterPaymentState > ;
 
 await buildMembersTable () ;
 
-
-
+//#region BUILD METHODS -------------------------------------------------------
 async function buildMembersTable ()
 {
     const fetched = await fetchWaiterPaymentsRegistryState () ;
-    const containerHTMLELEMENT : HTMLElement = document.getElementById ( "paymentsRegistry" )! ;
+    const containerHTMLELEMENT : HTMLElement = document.getElementById ( "tipsTableContainer" )! ;
     
     const paymentColumns = createPaymentColumns(fetched);
 
@@ -133,6 +145,7 @@ function createPaymentColumns ( members: WaiterPaymentState[] ) : TableColumn < 
 
     return columns;
 }
+//#endregion ------------------------------------------------------------------
 
 
 async function fetchWaiterPaymentsRegistryState ()
@@ -142,10 +155,6 @@ async function fetchWaiterPaymentsRegistryState ()
 
   return members ;
 }
-
-
-
-
 
 function showPaymentDoneOnTable (
     row: number ,
