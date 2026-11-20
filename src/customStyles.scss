@@ -16,10 +16,12 @@
     z-index: 3;
 }
 
+/*
 .responsiveDiv {
     overflow-y: auto;
     max-height: 600px;
 }
+    */
 
 .table .payment-day-completed {
     background: #85e29b;
@@ -64,14 +66,40 @@
     border-width: 1px ;
 }
 
+/* Outer container: only responsible for positioning */
 .tips-table-container
 {
     width: 100%;
-    max-height: min(50vh, 700px);
-
-    overflow: scroll;
 }
 
-.tips-table-container table {
+/* The actual scrolling container */
+.tips-table-container .responsiveDiv {
+    width: 100%;
+    max-height: min(50vh, 700px);
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Table */
+.tips-table-container table
+{
     border-spacing: 0;
+    border-collapse: separate;
+    margin-bottom: 0;
+}
+
+/* Sticky headers */
+.tips-table-container thead th
+{
+    position: sticky;
+    top: 0;
+    z-index: 3;
+
+    /* Must have an opaque background */
+    background-color: #212529;
+}
+
+.tips-table-container .table > :not(caption) > * > *
+{
+    border-bottom: 1px solid var(--bs-primary);
 }
