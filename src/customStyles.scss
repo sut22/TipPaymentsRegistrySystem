@@ -75,7 +75,7 @@
 /* The actual scrolling container */
 .tips-table-container .responsiveDiv {
     width: 100%;
-    max-height: min(50vh, 700px);
+    max-height: min(45vh, 700px);
     overflow: auto;
     -webkit-overflow-scrolling: touch;
 }
