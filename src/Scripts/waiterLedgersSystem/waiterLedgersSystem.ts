@@ -11,7 +11,7 @@ export let currentActionMode : TableActionMode = TableActionMode.ConfirmPayment 
 export function setCurrentActionMode ( newMode: TableActionMode ) { currentActionMode = newMode ; }
 
 const wao = document.querySelector ( "#saveChanges" ) as HTMLButtonElement ;
-wao.onclick = function (event) {
+wao.onclick = function () {
     dayTopClickedHandler.sendChanges () ; console.log ( "fired") ; }
 
 if ( userData.userID != -1 )
