@@ -24,7 +24,7 @@ export interface TableColumn < T >
     cellHeight ? : string ;
     sticky ?: boolean ;
     greyedOut ?: boolean ;
-    onClick ?: ( item: T ) => void ;
+    onClick ?: ( item: T , cell?: HTMLTableCellElement ) => void ;
     emphasized ?: boolean ;
 }
 
@@ -141,7 +141,7 @@ export function createTable<T>(
                 newCellHTML.addEventListener
                 (
                     "click",
-                    () => column.onClick!( item )
+                    () => column.onClick!( item , newCellHTML )
                 );
             }
 

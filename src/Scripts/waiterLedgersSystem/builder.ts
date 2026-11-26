@@ -1,62 +1,41 @@
-//  calls to APPS SCRIPT
-import { callApi } from "./appsScriptCall.ts" ;
-import { createTable } from "./contentGenerator.ts" ;
-import type { TableColumn , TableInstance } from "./contentGenerator.ts" ;
-import { showRegisterPaymentModal } from "./modalManager.ts" ;
-import { userData } from "./authorizationGuard.ts" ;
+import { userData } from "../authorizationGuard.ts";
+import { createTable, type TableColumn , type TableInstance } from "../contentGenerator.ts" ;
+import { showRegisterPaymentModal } from "../modalManager.ts";
+import { fetchWaiterPaymentsRegistryState } from "./apiCalls.ts";
+import { TableActionMode, type WaiterPaymentState } from "./models.ts"
+import { currentActionMode } from "./waiterLedgersSystem.ts";
+import { DayTipClickedHandler } from "./dayTipClickedHandler.ts";
 
-//#region TABLE_COMPOSITE -----------------------------------------------------
-const dataColumns: TableColumn < WaiterPaymentState > [] = [
-    {
+export const dayTopClickedHandler = new DayTipClickedHandler();
+
+export let waitersDebtTable : TableInstance < WaiterPaymentState > ;
+
+export const dataColumns: TableColumn < WaiterPaymentState > [] = [
+    { // NOMBRE
         header : "Nombre" ,
         value : member => member.waiterName ,
         sticky : true ,
-        onClick: item =>
-        {
-            showRegisterPaymentModal(
-                userData.username,
-                userData.userID.toString(),
-                item.waiterName,
-                item.waiterId.toString(),
-                item.totalDebt,
-
-                async (paymentAmount) =>
-                {
-                    const rowIndex =
-                        waitersDebtTable.data.findIndex(
-                            waiter => waiter.waiterId === item.waiterId
-                        );
-
-                    if (rowIndex !== -1)
-                    {
-                        showPaymentDoneOnTable(
-                            rowIndex,
-                            paymentAmount
-                        );
-                    }
-                }
-            );
-        },
+        onClick: item => { payDebtActionCall ( item ) } , // ACTION
         headerTextSize: "13px",
         cellTextSize : "13px" ,
         headerCellWidth : "500px" ,
         cellHeight : "60px"
     } ,
-    {
+    { // DEUDA TOTAL
         header: ["Deuda", "total"] ,
         value: member => member.totalDebt.toString () ,
         headerTextSize : "13px" ,
         cellTextSize : "15px" ,
         emphasized : true ,
     } ,
-    {
+    { // DIAS SIN PAGO
         header: ["Días", "sin pago"] ,
         value: member => member.currentAmountOfDaysPending.toString () ,
         headerTextSize : "11.5px" ,
         greyedOut : true ,
         cellTextSize : "16px" ,
     } ,
-    {
+    { // ADELANTO DE PAGO
         header: ["Adelanto", "de pago"] ,
         value: member => member.paidInAdvance.toString () ,
         headerTextSize : "11.5px" ,
@@ -65,43 +44,11 @@ const dataColumns: TableColumn < WaiterPaymentState > [] = [
         cellTextSize : "16px" ,
     }
 ] ;
-//#endregion ---------------------------------------------------------------
-
-//#region MODELS --------------------------------------------------------------
-interface Payment {
-  dayNumber : number ;
-  dayOfTheWeek : string ;
-  month: string ;
-  amount: number ;
-}
-
-interface WaiterPaymentState {
-  waiterId : number ;
-  waiterName : string ;
-  waiterType : 'FULL-TIME' | 'PART-TIME' ;
-  isActive: boolean ;
-  currentAmountOfDaysPending : number;
-  paidInAdvance : number ;
-  payments: Payment[] ;
-  totalDebt: number ;
-}
-
-export const TableActionMode = {
-  ConfirmPayment: "CONFIRM_PAYMENT" ,
-  ModifyAmount: "MODIFY_AMOUNT" ,
-  MarkDayOff: "MARK_DAY_OFF" ,
-  PayDebt: "PAY_DEBT" ,
-} as const ;
-export type TableActionMode = ( typeof TableActionMode ) [ keyof typeof TableActionMode ] ;
-//#endregion ------------------------------------------------------------------
 
 
-let waitersDebtTable : TableInstance < WaiterPaymentState > ;
 
-await buildMembersTable () ;
-
-//#region BUILD METHODS -------------------------------------------------------
-async function buildMembersTable ()
+//  ENTRY POINT ---------------
+export async function buildMembersTable ()
 {
     const fetched = await fetchWaiterPaymentsRegistryState () ;
     const containerHTMLELEMENT : HTMLElement = document.getElementById ( "tipsTableContainer" )! ;
@@ -116,6 +63,8 @@ async function buildMembersTable ()
     waitersDebtTable = createTable ( containerHTMLELEMENT , fetched , columns ) ;
 } ;
 
+
+//  DYNAMIC
 function createPaymentColumns ( members: WaiterPaymentState[] ) : TableColumn < WaiterPaymentState > []
 {
     const maxPayments = Math.max ( ...members.map ( member => member.payments.length ) ) ;
@@ -129,32 +78,53 @@ function createPaymentColumns ( members: WaiterPaymentState[] ) : TableColumn < 
       const month = members[0].payments[i].month ;
       
 
-        columns.push(
+        columns.push (
+        {
+            header: [`${dayOfTheWeek}`, `${dayNumber} ${month}`],
+
+            value: member =>
+                member.payments[i]?.amount
+                    ? member.payments[i].amount.toString()
+                : "",
+
+            onClick: (member, cell) =>
             {
-                header: [`${dayOfTheWeek}`, `${dayNumber} ${month}`],
+                const payment = member.payments[i];
 
-                value: member =>
-                    member.payments[i]?.amount ? member.payments[i].amount.toString() : "" ,
+                switch (currentActionMode)
+                {
+                    case TableActionMode.ConfirmPayment:
+                    {
+                        dayTopClickedHandler.toggleCell(
+                            payment.dayNumber,
+                            payment.monthNumber,
+                            member.waiterId,
+                            cell!
+                        );
 
-                headerCellWidth : "100px" ,
-                headerTextSize : "13px" ,
-                cellTextSize : "18px"
+                        break;
+                    }
+
+                    /*
+                    case TableActionMode.PayDebt:
+                    {
+                        console.log("Pay debt for:", member.waiterName);
+                        break;
+                    }
+                    */
+                }
             },
-        );
+
+            headerCellWidth: "100px",
+            headerTextSize: "13px",
+            cellTextSize: "18px"
+        } ) ;
     }
 
     return columns;
 }
-//#endregion ------------------------------------------------------------------
 
 
-async function fetchWaiterPaymentsRegistryState ()
-{
-  let members = await callApi < WaiterPaymentState [] > ( {
-    function: "getWaiterPaymentsRegistryState" } ) ;
-
-  return members ;
-}
 
 function showPaymentDoneOnTable (
     row: number ,
@@ -197,4 +167,26 @@ function showPaymentDoneOnTable (
         const paidInAdvanceCell = waitersDebtTable.rows [ row ].cells [ 3 ] ;
         paidInAdvanceCell.textContent = ( Number ( paidInAdvanceCell.textContent ) + paidMoneyLeft ).toString () ;
     }
+}
+
+
+
+//  called by clicking on the name of a Waiter
+export function payDebtActionCall ( item : WaiterPaymentState )
+{
+    if ( currentActionMode == TableActionMode.PayDebt )
+    showRegisterPaymentModal ( userData.username ,
+                                userData.userID.toString () ,
+                                item.waiterName ,
+                                item.waiterId.toString () ,
+                                item.totalDebt ,
+                                async ( paymentAmount ) => getCallbackFromModal ( item , paymentAmount ) )
+}
+
+function getCallbackFromModal ( item :WaiterPaymentState , paymentAmount : number ) 
+{
+    const rowIndex = waitersDebtTable.data.findIndex
+        ( waiter => waiter.waiterId === item.waiterId ) ;
+
+    if ( rowIndex !== -1 ) showPaymentDoneOnTable ( rowIndex , paymentAmount ) ;
 }

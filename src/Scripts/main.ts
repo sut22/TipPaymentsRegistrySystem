@@ -1,6 +1,6 @@
 import '../style.scss';
 //import "./tippableMemberDeclarer";
 //import "./waiterDeclarer";
-import "./waiterPaymentsRegistry";
+import "./waiterLedgersSystem/waiterLedgersSystem";
 import "./modalManager";
 import "./authorizationGuard";

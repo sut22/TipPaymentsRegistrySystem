@@ -16,15 +16,15 @@
     z-index: 3;
 }
 
-/*
-.responsiveDiv {
-    overflow-y: auto;
-    max-height: 600px;
-}
-    */
 
-.table .payment-day-completed {
+
+
+.table .payment-day-completed { // cuando el dia ya está pagado
     background: #85e29b;
+}
+
+.table .payment-day-pre-completed { // cuando se marcó como pagado pero aún no se envió a .gs
+    background: #85e2e2;
 }
 
 .table .greyed-out-text {
@@ -46,16 +46,6 @@
     height: 40px;
 }
 
-.radio-button-group-unselected
-{
-
-}
-
-.radio-button-group-selected
-{
-
-}
-
 .table-actions-box
 {
     padding: 2% ;
@@ -75,7 +65,7 @@
 /* The actual scrolling container */
 .tips-table-container .responsiveDiv {
     width: 100%;
-    max-height: min(45vh, 700px);
+    max-height: min(70vh, 1200px);//max-height: min(48vh, 700px);
     overflow: auto;
     -webkit-overflow-scrolling: touch;
 }
